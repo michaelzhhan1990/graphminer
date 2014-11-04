@@ -234,11 +234,11 @@ def gm_sql_mat_trace (db_conn, mat, row_id, col_id, val):
     
     return trc
 
-def gm_sql_index(db_conn,table_name,col_name,index_name):
+def gm_sql_index(db_conn,table_name,col_name,index_name,method):
     cur = db_conn.cursor()
     cur.execute("DROP INDEX IF EXISTS %s" % index_name)
     db_conn.commit()
-    cur.execute("CREATE INDEX %s " % index_name+" ON %s " %(table_name)+"( %s" % col_name +")")
+    cur.execute("CREATE INDEX %s " % index_name+" ON %s " %(table_name) + " USING %s" % method + "( %s" % col_name +")")
     db_conn.commit()
     cur.close()
 def gm_sql_unique_index(db_conn,table_name,col_name,index_name):
